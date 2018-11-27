@@ -2,10 +2,7 @@ package su.jdk8.code;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
@@ -41,6 +38,14 @@ public class TimeDemo {
     @Test
     void localTime() {
         LocalTime time = LocalTime.now();
+        LocalTime time1 = LocalTime.of(15, 43);
+
         System.out.println(time);
+    }
+
+    @Test
+    void localDateTime() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        System.out.println(dateTime);
     }
 }
