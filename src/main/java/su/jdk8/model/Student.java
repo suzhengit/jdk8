@@ -12,6 +12,7 @@ import su.jdk8.enums.Grade;
 @Data
 @AllArgsConstructor
 public class Student {
+
     private Integer id;
 
     private String name;
@@ -23,7 +24,9 @@ public class Student {
      * 班级
      */
     private Grade grade;
-
+    /**
+     * 分数
+     */
     private Integer score;
 
 }

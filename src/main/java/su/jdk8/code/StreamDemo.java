@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 
 /**
+ * 将对流的操作集合类比做SQL操作
  * @author 苏征
  * @date 2018-11-27
  */
@@ -36,6 +37,7 @@ public class StreamDemo {
 
     /**
      * SELECT name FROM student WHERE score >=60 ORDER BY score LIMIT 3 ;
+     * 对学生过滤及格的成绩并按照成绩排序取前三个数据, 然后映射出学生的姓名
      */
     @Test
     void testStream() {
@@ -49,7 +51,7 @@ public class StreamDemo {
     }
 
     /**
-     * 将对流的操作集合类比做SQL操作
+     *
      * SELECT * FROM student s GROUP BY s.grade;(按照班级分组)
      */
     @Test
@@ -80,7 +82,6 @@ public class StreamDemo {
         Map<Grade, Double> map = students.stream()
                 .collect(groupingBy(Student::getGrade, averagingInt(Student::getScore)));
         MapUtils.verbosePrint(System.out, "班级平均分列表", map);
-
         Map<Grade, Double> result1 = map.entrySet()
                 .stream()
                 .filter(e -> e.getValue() >= 60)
@@ -108,7 +109,8 @@ public class StreamDemo {
      */
     @Test
     void statisticScore() {
-        IntSummaryStatistics statisticScore = students.stream().collect(summarizingInt(Student::getScore));
+        IntSummaryStatistics statisticScore = students.stream()
+                .collect(summarizingInt(Student::getScore));
         System.out.println(statisticScore);
     }
 
