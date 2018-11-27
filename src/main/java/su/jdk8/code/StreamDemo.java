@@ -7,10 +7,7 @@ import su.jdk8.enums.Gender;
 import su.jdk8.enums.Grade;
 import su.jdk8.model.Student;
 
-import java.util.Arrays;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
@@ -21,6 +18,7 @@ import static java.util.stream.Collectors.*;
  */
 public class StreamDemo {
     private List<Student> students;
+
     @BeforeEach
     void init() {
         students = Arrays.asList(
@@ -37,20 +35,36 @@ public class StreamDemo {
     }
 
     /**
-     * select * from student s group by s.grade;
+     * SELECT name FROM student WHERE score >=60 ORDER BY score LIMIT 3 ;
      */
     @Test
     void testStream() {
+        List<String> list = students.stream()
+                .filter(a -> a.getScore() >= 60)
+                .sorted(Comparator.comparingInt(Student::getScore))
+                .limit(3)
+                .map(Student::getName)
+                .collect(toList());
+        list.forEach(System.out::println);
+    }
+
+    /**
+     * 将对流的操作集合类比做SQL操作
+     * SELECT * FROM student s GROUP BY s.grade;(按照班级分组)
+     */
+    @Test
+    void testStreamGroup() {
         Map<Grade, List<Student>> map = students.stream()
                 .collect(groupingBy(Student::getGrade));
         MapUtils.verbosePrint(System.out, "班级分组列表", map);
     }
 
+
     /**
-     * select * from student s group by s.grade, s.gender
+     * SELECT * FROM student s GROUP BY s.grade, s.gender
      */
     @Test
-    void testStreamGroup() {
+    void testStreamGroupTwo() {
         Map<Grade, Map<Gender, List<Student>>> map = students.stream()
                 .collect(groupingBy(
                         Student::getGrade, groupingBy(
@@ -59,7 +73,7 @@ public class StreamDemo {
     }
 
     /**
-     * select s.grade, avg(s.score) from student s group by s.grade having avg(s.score) >= 60
+     * SELECT s.grade, AVG(s.score) FROM student s GROUP BY s.grade HAVING AVG(s.score) >= 60
      */
     @Test
     void testStreamGroupFilter() {
@@ -78,6 +92,9 @@ public class StreamDemo {
 
     }
 
+    /**
+     * 分块partitioningBy(Predicate<? super T> predicate)  predicate条件为true,则map的key为true
+     */
     @Test
     void partitioning() {
         Map<Boolean, List<Student>> partitioningMap = students.stream()
@@ -86,7 +103,7 @@ public class StreamDemo {
     }
 
     /**
-     * select count(score), sum(score), min(score), average(score), max(score) from student group by score;
+     * SELECT COUNT(score), SUM(score), MIN(score), AVERAGE(score), MAX(score) FROM student GROUP BY score;
      * 将同学的分数聚合统计
      */
     @Test
@@ -105,5 +122,6 @@ public class StreamDemo {
                 .collect(joining(",", "{", "}"));
         System.out.println(jointName);
     }
+
 
 }
