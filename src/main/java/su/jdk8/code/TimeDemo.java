@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 
 /**
  * @author 苏征
@@ -46,6 +47,12 @@ public class TimeDemo {
     @Test
     void localDateTime() {
         LocalDateTime dateTime = LocalDateTime.now();
-        System.out.println(dateTime);
+        //LocalDateTime转Date
+        Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        //Date转LocalDateTime
+        LocalDateTime dateTime0 = LocalDateTime.ofInstant(date.toInstant(),ZoneId.systemDefault());
+        //Date转字符串
+        String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
     }
 }
