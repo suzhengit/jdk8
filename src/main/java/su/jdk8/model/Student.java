@@ -2,6 +2,7 @@ package su.jdk8.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import su.jdk8.enums.Gender;
 import su.jdk8.enums.Grade;
 
@@ -10,6 +11,7 @@ import su.jdk8.enums.Grade;
  * @date 2018-11-27
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Student {
 

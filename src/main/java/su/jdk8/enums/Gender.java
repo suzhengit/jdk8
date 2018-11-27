@@ -7,6 +7,7 @@ package su.jdk8.enums;
 public enum Gender {
     MALE("男"),
     FEMALE("女");
+
     String sex;
 
     Gender(String sex) {
