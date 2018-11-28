@@ -34,7 +34,7 @@ public class StreamPractice {
                 setName("张飞");
             }});
         }};
-        //一个函数作为另一个函数的结果
+        //一个函数作为另一个函数的返回
         Function<String, BiConsumer<String, Student>> function = e -> (k, v) -> {
             if (e.equals(k)) {
                 result.add(v.getName());

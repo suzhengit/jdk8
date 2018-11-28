@@ -39,8 +39,7 @@ public class TimeDemo {
     @Test
     void localTime() {
         LocalTime time = LocalTime.now();
-        LocalTime time1 = LocalTime.of(15, 43);
-
+        LocalTime time0 = LocalTime.of(15, 43);
         System.out.println(time);
     }
 
@@ -51,7 +50,7 @@ public class TimeDemo {
         Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
         //Date转LocalDateTime
         LocalDateTime dateTime0 = LocalDateTime.ofInstant(date.toInstant(),ZoneId.systemDefault());
-        //Date转字符串
+        //LocalDateTime转字符串
         String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     }
