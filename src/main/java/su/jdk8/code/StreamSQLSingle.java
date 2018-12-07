@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 
 /**
- * 将对流的操作集合类比做SQL操作
+ * 用Stream模拟数据库SQL
  * @author 苏征
  * @date 2018-11-27
  */
