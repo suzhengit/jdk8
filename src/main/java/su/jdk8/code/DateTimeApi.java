@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author 苏征
  * @date 2018-11-27
  */
-public class TimeDemo {
+public class DateTimeApi {
 
     @Test
     void localDate() {

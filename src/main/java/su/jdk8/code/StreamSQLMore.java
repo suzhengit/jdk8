@@ -10,7 +10,6 @@ import su.jdk8.model.Student;
 import su.jdk8.model.Teacher;
 
 import java.util.Arrays;
-import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
  * @author 苏征
  * @date 2018-11-30
  */
-public class StreamSQL2 {
+public class StreamSQLMore {
     private List<Student> students;
     private List<Teacher> teachers;
 
@@ -61,7 +60,7 @@ public class StreamSQL2 {
                     .filter(teacher -> student.getGrade() == teacher.getGrade())
                     .collect(Collectors.toList());
             student.setTeachers(teacherList);
-        }).filter(StreamSQL2::filterPass).collect(Collectors.toList());
+        }).filter(StreamSQLMore::filterPass).collect(Collectors.toList());
         studentList.forEach(System.out::println);
     }
 
@@ -81,12 +80,12 @@ public class StreamSQL2 {
             }
             student.setTeachers(teacherList);
             return flag;
-        }).filter(StreamSQL2::filterPass).collect(Collectors.toList());
+        }).filter(StreamSQLMore::filterPass).collect(Collectors.toList());
         studentList.forEach(System.out::println);
     }
 
     /**
-     * select gender, sum(grade) from student a left join teacher b on a.grade = b.grade where a.score >= 60 group by a.grade having a.grade >= 90;
+     * SELECT gender, AVG(grade) FROM student a LEFT JOIN teacher b ON a.grade = b.grade WHERE a.score >= 60 GROUP BY a.grade HAVING a.grade >= 90;
      */
     @Test
     void joinGroupStream() {
@@ -98,7 +97,7 @@ public class StreamSQL2 {
                 }
                 student.setTeachers(teacherList);
             });
-        }).filter(StreamSQL2::filterPass).collect(Collectors.groupingBy(Student::getGrade, Collectors.averagingDouble(Student::getScore)));
+        }).filter(StreamSQLMore::filterPass).collect(Collectors.groupingBy(Student::getGrade, Collectors.averagingDouble(Student::getScore)));
         Map<Grade, Double> result = map.entrySet()
                 .stream()
                 .filter(e -> e.getValue() >= 90)
