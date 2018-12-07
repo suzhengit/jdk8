@@ -8,7 +8,8 @@ public enum Grade {
     ONE("一班"),
     TWO("二班"),
     THREE("三班"),
-    FOUR("四班");
+    FOUR("四班"),
+    FIVE("五班");
     String desc;
 
     Grade(String desc) {

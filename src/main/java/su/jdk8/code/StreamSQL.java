@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.*;
  * @author 苏征
  * @date 2018-11-27
  */
-public class StreamDemo {
+public class StreamSQL {
     private List<Student> students;
 
     @BeforeEach
