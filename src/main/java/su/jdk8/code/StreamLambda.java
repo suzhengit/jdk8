@@ -10,12 +10,13 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 苏征
  * @date 2018-11-27
  */
-public class StreamPractice {
+public class StreamLambda {
 
     /**
      * 将map中key存在于list的name取出来放在另一个集合中
@@ -113,4 +114,32 @@ public class StreamPractice {
         }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         MapUtils.verbosePrint(System.out, "Map差集列表", result);
     }
+
+    /**
+     * 多个集合汇合成一个流
+     */
+    @Test
+    void listConverge() {
+        List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(4, 2, 3, 5);
+        List<Integer> flatList = Stream.of(list1, list2)
+                //   .flatMap(list -> list.stream())
+                .flatMap(List::stream)  //实例方法引用
+                .collect(Collectors.toList());
+        System.out.println(flatList);
+    }
+
+    /**
+     * 多个数组汇合成一个数组流
+     */
+    @Test
+    void arrayConverge() {
+        String[] array1 = {"A","B","C","D"};
+        String[] array2 = {"D","E","C","A"};
+        String[] flatArray = Stream.of(array1, array2)
+                .flatMap(Arrays::stream)
+                .toArray(String[]::new);
+        System.out.println(Arrays.toString(flatArray));
+    }
+
 }
