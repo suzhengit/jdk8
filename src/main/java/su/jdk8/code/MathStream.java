@@ -2,14 +2,15 @@ package su.jdk8.code;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.partitioningBy;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author 苏征
@@ -20,21 +21,23 @@ public class MathStream {
     /**
      * 小于等于n的勾股数
      */
-    @Test
-    void pythagoreanTriple(int n) {
+    private List<List<Integer>> pythagoreanTriple(int n) {
         Stream<double[]> stream = IntStream.rangeClosed(1, n).boxed()
-                .flatMap(a -> IntStream.rangeClosed(a, n)
-                        .mapToObj(b -> new double[]{a, b, Math.sqrt(a * a + b * b)}))
+                .flatMap(a -> IntStream.rangeClosed(a, n).mapToObj(b -> new double[]{a, b, Math.sqrt(a * a + b * b)}))
                 .filter(t -> t[2] % 1 == 0);
-        List<double[]> list = stream.collect(Collectors.toList());
-        for (double[] doubles : list) {
-            System.out.println(Arrays.toString(doubles));
-        }
+        List<double[]> list = stream.collect(toList());
+        List<List<Integer>> result = new ArrayList<>();
+        list.forEach(e -> {
+            List<Integer> l = Arrays.stream(e).mapToInt(f -> (int) f).boxed().collect(toList());
+            result.add(l);
+        });
+        return result;
     }
 
     @Test
     void searchPythagoreanTriple() {
-        pythagoreanTriple(150);
+        List<List<Integer>> list = pythagoreanTriple(150);
+        list.forEach(System.out::println);
     }
 
     /**
@@ -53,7 +56,7 @@ public class MathStream {
      * @param n
      * @return
      */
-    public Map<Boolean, List<Integer>> partitionPrimes(int n) {
+    private Map<Boolean, List<Integer>> partitionPrimes(int n) {
         return IntStream.rangeClosed(2, n).boxed()
                 .collect(partitioningBy(this::isPrime));
     }
@@ -64,4 +67,5 @@ public class MathStream {
         List<Integer> list = map.get(true);
         System.out.println(list);
     }
+
 }
